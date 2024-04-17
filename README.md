@@ -8,7 +8,7 @@ This code was written in python3.
 pip install -r requirements.txt
 ```
 
-# 2. Run
+# 2. Running example code
 ### 1. apply_dot_depth.py
 ```bash
 python3 apply_dot_depth.py
