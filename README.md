@@ -1,5 +1,5 @@
 # ir_pattern
-Generate ir pattern to gray image.
+Generate IR Pattern to gray image.
 This code was written in python3.
 
 # 1. Setup
