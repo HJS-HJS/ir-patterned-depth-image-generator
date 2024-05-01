@@ -37,3 +37,23 @@ def img_to_depth(image1: np.array, image2: np.array, intrinsic: np.array, baseli
     depth_img[valid_pixels] = (fx * baseline) / (units * disparity[valid_pixels])
 
     return np.array(depth_img, dtype = np.float32)
+
+def depth_to_pcd(depth_image: np.array, camera_intr: np.array) ->np.array:
+    """Convert depth image to pointcloud data.
+
+    Args:
+        depth_image (np.array): (H, W) depth image to convert.
+        camera_intr (np.array): (3, 3) camera intrinsic matrix.
+
+    Returns:
+        np.array: (N, 3) pointcloud data array converted from depth image
+    """
+    height, width = depth_image.shape
+    row_indices = np.arange(height)
+    col_indices = np.arange(width)
+    pixel_grid = np.meshgrid(col_indices, row_indices)
+    pixels = np.c_[pixel_grid[0].flatten(), pixel_grid[1].flatten()].T
+    pixels_homog = np.r_[pixels, np.ones([1, pixels.shape[1]])]
+    depth_arr = np.tile(depth_image.flatten(), [3, 1])
+    point_cloud = depth_arr * np.linalg.inv(camera_intr).dot(pixels_homog)
+    return point_cloud.transpose()
