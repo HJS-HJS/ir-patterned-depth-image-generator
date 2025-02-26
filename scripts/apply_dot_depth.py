@@ -1,3 +1,4 @@
+import os
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
@@ -18,10 +19,11 @@ extrinsic = np.array([ -9.5284142039327635e-01, 2.1412216810855048e-02, 3.027123
 cam_dist = 0.055
 
 # Get depth, gray image.
-gray0  = cv2.imread("images_sim/gray_image_0.png", cv2.IMREAD_GRAYSCALE)
-gray1  = cv2.imread("images_sim/gray_image_1.png", cv2.IMREAD_GRAYSCALE)
-depth0 = np.load("images_sim/depth_image_0.npy")
-depth1 = np.load("images_sim/depth_image_1.npy")
+file_path = os.path.abspath("../images_sim")
+gray0  = cv2.imread(file_path + "/gray_image_0.png", cv2.IMREAD_GRAYSCALE)
+gray1  = cv2.imread(file_path + "/gray_image_1.png", cv2.IMREAD_GRAYSCALE)
+depth0 = np.load(file_path + "/depth_image_0.npy")
+depth1 = np.load(file_path + "/depth_image_1.npy")
 
 # Initialize IRPattern module.
 ir_pattern = IRPattern(depth0.shape, intrinsic)

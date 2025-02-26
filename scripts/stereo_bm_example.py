@@ -1,10 +1,10 @@
-import numpy as np
+import os
 import cv2
+import numpy as np
 
 from matplotlib import pyplot as plt
 
 from utils import *
-from ir_pattern import IRPattern
 
 intrinsic = np.array([[893.82104492   ,0.             ,633.12652588],
                       [0.0            ,893.82104492   ,354.45303345],
@@ -17,10 +17,11 @@ extrinsic = np.array([ -9.5284142039327635e-01, 2.1412216810855048e-02, 3.027123
 
 color_intrinsic = np.array([911.3764038085938, 0.0, 649.60546875, 0.0, 910.2608032226562, 352.57177734375, 0.0, 0.0, 1.0]).reshape(3,3)
 
-seg0 = np.load("images_real/real_segment_image_0.npy")
+file_path = os.path.abspath("../images_real")
+seg0 = np.load(file_path + "/real_segment_image_0.npy")
 
-depth0  = cv2.imread("images_real/image0.png", cv2.IMREAD_GRAYSCALE)
-depth1  = cv2.imread("images_real/image1.png", cv2.IMREAD_GRAYSCALE)
+depth0  = cv2.imread(file_path + "/image0.png", cv2.IMREAD_GRAYSCALE)
+depth1  = cv2.imread(file_path + "/image1.png", cv2.IMREAD_GRAYSCALE)
 
 depth = img_to_depth(depth0, depth1, intrinsic)
 
